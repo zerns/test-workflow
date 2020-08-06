@@ -9,5 +9,5 @@ jobs:
     runs-on: ubuntu-18.04
     
     steps:
-    - name: First step
+    - name: First step 01
       run: echo First step executed
