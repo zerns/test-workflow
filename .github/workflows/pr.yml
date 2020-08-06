@@ -2,9 +2,7 @@ name: Test PR and Merge
 
 on:
   pull_request:
-    types: [assigned, opened, synchronize, reopened]
-  push:
-    branches: [master]
+    types: [assigned, opened, synchronize, reopened, closed]
 
 jobs:
   job_1:
