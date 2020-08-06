@@ -13,7 +13,10 @@ jobs:
       run: echo First step executed
 #     - name: Trigger error. Should fail.
 #       run: exit 1
+    - name: Print base ref
+      run: |
+        echo "Base ref is $GITHUB_BASE_REF"
     
     - name: Create tag on successful merge
-      if: github.ref == 'refs/heads/master' && github.event.pull_request.merged == true
+      if: github.base_ref == 'refs/heads/master' && github.event.pull_request.merged == true
       run: echo Create tag
