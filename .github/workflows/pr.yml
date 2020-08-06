@@ -2,7 +2,6 @@ name: Test PR and Merge
 
 on:
   pull_request:
-    types: [open, edited]
     branches: '*'
 
 jobs:
