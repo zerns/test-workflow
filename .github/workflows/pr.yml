@@ -3,14 +3,17 @@ name: Test PR and Merge
 on:
   pull_request:
     types: [assigned, opened, synchronize, reopened]
-    branches: '*'
+  push:
+    branches: [master]
 
 jobs:
   job_1:
     runs-on: ubuntu-18.04
     
     steps:
-    - name: First step 02
+    - name: First step
       run: echo First step executed
-    #- name: Trigger error. Should fail.
-      #run: exit 1
+#     - name: Trigger error. Should fail.
+#       run: exit 1
+    - name: Create tag only if successful merging to master
+      run: echo Create tag
