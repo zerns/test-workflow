@@ -1,8 +1,8 @@
 name: Test PR and Merge
 
 on:
-  push:
-    branches: [ master ]
+  pull_request:
+    branches: '*'
 
 jobs:
   job_1:
