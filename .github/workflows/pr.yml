@@ -1,0 +1,16 @@
+name: Test PR and Merge
+
+on:
+  pull_request:
+    types: [ready_for_review, review_requested]
+  push:
+    branches: [ master ]
+
+jobs:
+  job_1:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    runs-on: ubuntu-18.04
+    
+    steps:
+    - name: First step
+      run: echo First step executed
