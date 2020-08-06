@@ -1,0 +1,15 @@
+name: Test PR and Merge
+
+on:
+  pull_request:
+    types: [ready_for_review, review_requested]
+  push:
+    branches: [ * ]
+
+jobs:
+  build:
+
+    steps:
+      - name: First step
+        run: echo First step executed
+
