@@ -4,12 +4,12 @@ on:
   pull_request:
     types: [ready_for_review, review_requested]
   push:
-    branches: [ * ]
+    branches: [ test-branch ]
 
 jobs:
-  build:
-
+  job_1:
+    runs-on: ubuntu-18.04
+    
     steps:
-      - name: First step
-        run: echo First step executed
-
+    - name: First step
+      run: echo First step executed
