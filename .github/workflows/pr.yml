@@ -16,4 +16,5 @@ jobs:
 #     - name: Trigger error. Should fail.
 #       run: exit 1
     - name: Create tag only if successful merging to master
+      if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
       run: echo Create tag
