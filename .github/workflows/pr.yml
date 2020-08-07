@@ -17,7 +17,7 @@ jobs:
       run: |
         echo "Base ref is $GITHUB_BASE_REF"
     
-    - name: Retrieve DS version - # Use old version.
+    - name: Retrieve DS version
       if: github.base_ref == 'master' && github.event.pull_request.merged == true
       run: 
         echo ::set-env name=TAG_NAME::$(echo "0.0.2")
