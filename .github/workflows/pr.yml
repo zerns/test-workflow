@@ -31,7 +31,8 @@ jobs:
     - name: Check tag name
       run: |
         EXISTS="$(git ls-remote --exit-code --tags origin \"v${{ env.TAG_NAME }}\")"
-        echo "::set-env name=TAG_NAME_EXISTS::$EXISTS"
+        echo "$EXISTS"
+        echo ::set-env name=TAG_NAME_EXISTS::$EXISTS
         echo "tag name exists: ${{ env.TAG_NAME_EXISTS }}"
     
     - name: tag_name available
