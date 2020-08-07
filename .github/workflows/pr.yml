@@ -26,15 +26,16 @@ jobs:
       run: 
         echo ::set-env name=TAG_NAME::$(echo "0.0.2")
         
-#     - name: Check tag name
-#       run: |
-#         echo ::set-env name=TAG_NAME_EXISTS::$(git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}")
+    - name: Check tag name
+      run: |
+        echo ::set-env name=TAG_NAME_EXISTS::$(git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}")
     
     - name: tag_name available
+      if: ${{ env.TAG_NAME_EXISTS }}
       run: |
-        if git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}" >/dev/null 2>&1; then echo "Exists"; exit 1; fi
-      # echo "tag name already exists: ${{ env.TAG_NAME_EXISTS }}"
-      # exit 1
+        echo "tag name already exists: ${{ env.TAG_NAME_EXISTS }}"
+        exit 1
+      #  if git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}" >/dev/null 2>&1; then echo "Exists"; exit 1; fi
         
     - id: create_release
       if: github.base_ref == 'master' && github.event.pull_request.merged == true
