@@ -27,6 +27,7 @@ jobs:
         
     - name: Check tag name
       run: |
+        echo $(git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}")
         echo ::set-env name=TAG_NAME_EXISTS::$(git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}")
     
     - name: tag_name available
