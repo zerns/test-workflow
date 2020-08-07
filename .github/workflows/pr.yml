@@ -15,19 +15,21 @@ jobs:
     steps:
     - name: First step
       run: echo First step executed
-#     - name: Trigger error. Should fail.
-#       run: exit 1
+
     - name: Print base ref
       run: |
         echo "Base ref is $GITHUB_BASE_REF"
     
+    - id: checkout_ds_repo
+      name: Checkout this repo
+      uses: actions/checkout@v2
+      
     - name: Retrieve DS version
       run: 
         echo ::set-env name=TAG_NAME::$(echo "0.0.2")
         
     - name: Check tag name
       run: |
-        echo $(git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}")
         echo ::set-env name=TAG_NAME_EXISTS::$(git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}")
     
     - name: tag_name available
