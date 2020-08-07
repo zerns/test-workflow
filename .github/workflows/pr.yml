@@ -31,7 +31,7 @@ jobs:
     - name: Check if tag name is still available.
       run: |
         DETAILS=$(git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}" || echo "")
-        if [ $DETAILS != "" ]; then exit 1; fi
+        if [ "$DETAILS" != "" ]; then exit 1; fi
       # echo ::set-output name=AVAILABLE::${IS_AVAILABLE}
       # echo "::set-output name=details::$DETAILS"
       # echo ::set-env name=TAG_NAME_EXISTS::$EXISTS
