@@ -26,16 +26,16 @@ jobs:
       
     - name: Retrieve DS version
       run: 
-        echo ::set-env name=TAG_NAME::$(echo "0.0.2")
+        echo ::set-env name=TAG_NAME::$(echo "0.0.3")
         
     - name: Check tag name
       run: |
-        EXISTS=$(git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}")
+        EXISTS=$(git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}" || echo "NO")
         echo ::set-env name=TAG_NAME_EXISTS::$EXISTS
       # echo "tag name exists: ${{ env.TAG_NAME_EXISTS }}"
     
     - name: tag_name available
-      if: ${{ env.TAG_NAME_EXISTS }} != ""
+      if: ${{ env.TAG_NAME_EXISTS }} != "NO"
       run: |
         echo "tag name exists: ${{ env.TAG_NAME_EXISTS }}"
         echo "tag name already used: v${{ env.TAG_NAME }}"
