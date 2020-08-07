@@ -17,6 +17,16 @@ jobs:
       run: |
         echo "Base ref is $GITHUB_BASE_REF"
     
-    - name: Create tag on successful merge
+    - name: Retrieve DS version
       if: github.base_ref == 'master' && github.event.pull_request.merged == true
-      run: echo Create tag
+      run: 
+        echo ::set-env name=TAG_NAME::$(echo "0.0.1")
+        
+    - id: create_release
+      if: github.base_ref == 'master' && github.event.pull_request.merged == true
+      name: Create release on successful merge
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.CI_USER_GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.TAG_NAME }}
