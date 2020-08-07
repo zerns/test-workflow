@@ -28,14 +28,17 @@ jobs:
       run: 
         echo ::set-env name=TAG_NAME::$(echo "0.0.3")
         
-    - name: Check tag name
+    - id: tag
+      name: Check tag name
       run: |
-        EXISTS=$(git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}" || echo "AVAILABLE")
-        echo ::set-env name=TAG_NAME_EXISTS::$EXISTS
+        EXISTS=$(git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}")
+        # echo ::set-env name=TAG_NAME_EXISTS::$EXISTS
+        echo "::set-output name=exists::$EXISTS"
         # echo "tag name exists: ${{ env.TAG_NAME_EXISTS }}"
     
     - name: tag_name available
-      if: ${{ env.TAG_NAME_EXISTS }} != "AVAILABLE"
+#       if: ${{ env.TAG_NAME_EXISTS }} != "AVAILABLE"
+      if: ${{ steps.tag.ouput.exists }} != ""
       run: |
         echo "tag name exists: ${{ env.TAG_NAME_EXISTS }}"
         echo "tag name already used: v${{ env.TAG_NAME }}"
