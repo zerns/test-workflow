@@ -37,7 +37,7 @@ jobs:
       # echo "tag name exists: ${{ env.TAG_NAME_EXISTS }}"
     
     - name: tag_name available
-      if: steps.repo_tag.outputs.details != ""
+      if: ${{steps.repo_tag.outputs.details}} != ""
       run: |
         echo "tag name exists: '${{ env.TAG_NAME_EXISTS }}'"
         echo "tag name already used: v${{ env.TAG_NAME }}"
