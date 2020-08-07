@@ -3,9 +3,13 @@ name: Test PR and Merge
 on:
   pull_request:
     types: [assigned, opened, synchronize, reopened, closed]
+  
+  # This is for testing only.
+  push:
+    branches: [ test-branch ]
 
 jobs:
-  job_1:
+  build:
     runs-on: ubuntu-18.04
     
     steps:
@@ -17,10 +21,20 @@ jobs:
       run: |
         echo "Base ref is $GITHUB_BASE_REF"
     
-    - name: Retrieve DS version - # Use old version.
-      if: github.base_ref == 'master' && github.event.pull_request.merged == true
+    - name: Retrieve DS version
+#       if: github.base_ref == 'master' && github.event.pull_request.merged == true
       run: 
         echo ::set-env name=TAG_NAME::$(echo "0.0.2")
+        
+#     - name: Check tag name
+#       run: |
+#         echo ::set-env name=TAG_NAME_EXISTS::$(git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}")
+    
+    - name: tag_name available
+      run: |
+        if git ls-remote --exit-code --tags origin "v${{ env.TAG_NAME }}" >/dev/null 2>&1; then echo "Exists"; exit 1; fi
+      # echo "tag name already exists: ${{ env.TAG_NAME_EXISTS }}"
+      # exit 1
         
     - id: create_release
       if: github.base_ref == 'master' && github.event.pull_request.merged == true
